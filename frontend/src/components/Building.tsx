@@ -14,7 +14,7 @@ export interface BuildingProps
 }
 const Building: React.FC<BuildingProps> = ({id, src, name, city, street}) => 
 {
-    const [showDetail, setShowDetail] = useState(true);
+    const [showDetail, setShowDetail] = useState(false);
     const expandInfo = (buildingId: number) => {
         setShowDetail(prevShowDetail => !prevShowDetail);
         console.log(`CLICKED ON BUTTON related to building: ${buildingId}` );
@@ -22,8 +22,8 @@ const Building: React.FC<BuildingProps> = ({id, src, name, city, street}) =>
     //"(" ne smije ici u novu liniju
     return (
         <div>
-            <Card style={{width: '18rem'}}>
-                <Card.Img key = {id} src={src} alt={name} />
+            <Card style={{width: '18rem', height: showDetail ? 'auto' : '400px'}}>
+                <Card.Img style={{height: '200px', width: '200px'}} key = {id} src={src} alt={name} />
                 <Card.Body>
                     <Card.Title>
                         {name}
@@ -34,7 +34,7 @@ const Building: React.FC<BuildingProps> = ({id, src, name, city, street}) =>
                 </Card.Body>
                 {showDetail == true ? <BuildingDetails buildingId={id} entrances={entrancesData}/> : <></>}
                 <Button onClick={() => expandInfo(id)}>
-                    {showDetail==true ? "Pokaži više informacija" : "Makni informacije"}</Button>
+                    {showDetail==false ? "Pokaži više informacija" : "Makni informacije"}</Button>
             </Card>
         </div>
     );

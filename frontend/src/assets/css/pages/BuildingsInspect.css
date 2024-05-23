@@ -1,0 +1,7 @@
+/* BuildingsInspect.css */
+
+.buildings-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  

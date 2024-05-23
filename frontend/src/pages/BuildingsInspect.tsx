@@ -1,6 +1,6 @@
 import React from "react";
 import Building, {BuildingProps} from "../components/Building";
-
+import "../assets/css/pages/BuildingsInspect.css" 
 interface BuildingsProps 
 {
     buildings: BuildingProps[];
@@ -8,7 +8,7 @@ interface BuildingsProps
 
 const BuildingsInspect: React.FC<BuildingsProps> = ({buildings}) => {
     return (
-        <div>
+        <div className="buildings-container">
             {buildings.map((building) => (
                 <Building key={building.id} {...building}/>
             ))}
