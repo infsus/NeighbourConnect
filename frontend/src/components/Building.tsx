@@ -10,9 +10,10 @@ export interface BuildingProps
     name: string;
     city: string;
     street: string;
+    streetNumber: number;
 
 }
-const Building: React.FC<BuildingProps> = ({id, src, name, city, street}) => 
+const Building: React.FC<BuildingProps> = ({id, src, name, city, street, streetNumber}) => 
 {
     const [showDetail, setShowDetail] = useState(false);
     const expandInfo = (buildingId: number) => {
@@ -23,13 +24,15 @@ const Building: React.FC<BuildingProps> = ({id, src, name, city, street}) =>
     return (
         <div>
             <Card style={{width: '18rem', height: showDetail ? 'auto' : '400px'}}>
-                <Card.Img style={{height: '200px', width: '200px'}} key = {id} src={src} alt={name} />
+                <div className="building-image-container" style={{width: '200px', height: '200px'}}>
+                    <Card.Img style={{width: '100%', height: '100%'}}key = {id} src={src} alt={name} />
+                </div>
                 <Card.Body>
                     <Card.Title>
                         {name}
                     </Card.Title>
                     <Card.Text>
-                        Lokacija: {street}, {city}
+                        Lokacija: {street} {streetNumber}, {city}
                     </Card.Text>
                 </Card.Body>
                 {showDetail == true ? <BuildingDetails buildingId={id} entrances={entrancesData}/> : <></>}

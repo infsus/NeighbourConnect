@@ -1,5 +1,4 @@
 import React from "react";
-import { buildingsData, entrancesData } from "../assets/buildingsData/buildingsData";
 import { BuildingEntraceProps } from "./BuildingEntrance";
 import "../assets/css/components/BuildingDetails.css"
 
@@ -9,7 +8,7 @@ interface BuildingDetailsProps {
 }
 const BuildingDetails: React.FC<BuildingDetailsProps> = ({ buildingId, entrances }) => {
 
-    const filteredEntrances = entrancesData.filter(element => element.parentID === buildingId);
+    const filteredEntrances = entrances.filter(element => element.parentID === buildingId);
 
     const renderedEntrances = filteredEntrances.map(entrance => (
         <div key={entrance.parentID} className="detail-content">
