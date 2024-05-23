@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dropdown, DropdownButton } from "react-bootstrap"; // Correct imports
+import { Dropdown, DropdownButton } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
@@ -13,6 +13,7 @@ interface Category {
     name: string,
     data: string[] | number[];
 }
+
 interface FilterProps {
     categoryTypes: FilterElement[];
     categories: Category[];
@@ -21,7 +22,7 @@ interface FilterProps {
 const Filter: React.FC<FilterProps> = ({ categoryTypes, categories }) => {
     
     const [categoryState, setCategoryState] = useState<FilterElement[]>(categoryTypes);
-    //console.log(categoryState);
+
     // Enables/disables category
     const toggleCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
         const updatedCategories = categoryState.map(category => {
@@ -50,7 +51,9 @@ const Filter: React.FC<FilterProps> = ({ categoryTypes, categories }) => {
             </Form>
             <ButtonGroup>
                 {categoryState.map((category, index) => (
-                    <Button key={index} value={category.name} onClick={toggleCategory}>{category.name}</Button>
+                    <Button key={index} value={category.name} onClick={toggleCategory}>
+                        {category.name}
+                    </Button>
                 ))}
             </ButtonGroup>
             {categoryState.map((category, index) => (
@@ -61,7 +64,14 @@ const Filter: React.FC<FilterProps> = ({ categoryTypes, categories }) => {
                     disabled={!category.chosen}
                     onSelect={selectCategory}
                 >
-                    <Dropdown.Item eventKey={category.name}>{category.name}</Dropdown.Item>
+                    {categories.filter((c) => c.name === category.name)
+                        .map((element) => (
+                            element.data.map((item, idx) => (
+                                <Dropdown.Item key={idx} eventKey={item.toString()}>
+                                    {item}
+                                </Dropdown.Item>
+                            ))
+                        ))}
                 </DropdownButton>
             ))}
         </>

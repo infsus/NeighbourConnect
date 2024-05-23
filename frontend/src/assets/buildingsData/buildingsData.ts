@@ -1,6 +1,6 @@
 import { BuildingProps } from "../../components/Building";
 import { BuildingEntraceProps } from "../../components/BuildingEntrance";
-import { FilterElement } from "../../components/Filter";
+import { FilterElement, Category } from "../../components/Filter";
 
 const cities: string[] = [
   "Zagreb",
@@ -203,7 +203,7 @@ const buildingsData: BuildingProps[] = [
     streetNumber: 0
   }
 ];
-const categories: FilterElement[] = [
+const categoryTypes: FilterElement[] = [
   {
     chosen: false,
     name: "city"
@@ -211,6 +211,20 @@ const categories: FilterElement[] = [
   {
     chosen: false,
     name: "street"
+  }
+];
+const categories: Category[] = [
+  {
+    name: "city",
+    data: cities
+  },
+  {
+    name: "street",
+    data: streets
+  },
+  {
+    name: "streetNumber",
+    data: streetNumbers
   }
 ];
 const entrancesData: BuildingEntraceProps[] = [
@@ -264,5 +278,6 @@ buildingsData.forEach((element, index) => {
 export {
   buildingsData,
   entrancesData,
+  categoryTypes,
   categories
 }

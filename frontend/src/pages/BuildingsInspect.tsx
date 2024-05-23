@@ -2,7 +2,7 @@ import React from "react";
 import Building, { BuildingProps } from "../components/Building";
 import "../assets/css/pages/BuildingsInspect.css"
 import Filter from "../components/Filter";
-import { categories } from "../assets/buildingsData/buildingsData";
+import { categoryTypes, categories } from "../assets/buildingsData/buildingsData";
 interface BuildingsProps {
     buildings: BuildingProps[];
 }
@@ -10,7 +10,7 @@ interface BuildingsProps {
 const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
     return (
         <div>
-            <Filter categories={categories}></Filter>
+            <Filter categoryTypes = {categoryTypes} categories={categories} ></Filter>
             <div className="buildings-container">
                 {buildings.map((building) => (
                     <Building key={building.id} {...building} />
