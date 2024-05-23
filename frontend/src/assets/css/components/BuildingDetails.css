@@ -1,0 +1,35 @@
+/* BuildingDetails.css */
+
+.details-container {
+    margin-top: 20px;
+  }
+  
+  .title {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .detail-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  /* Updated style for "Ulazi" */
+  h4 {
+    margin: 0;
+    font-size: 25px; /* Adjust size as needed */
+    text-align: left;
+    margin-bottom: 5px;
+  }
+  
+  /* Optional: Adjust widths as needed */
+  .title p,
+  .detail-content p {
+    width: 50%; /* Equal width for both columns */
+  }
+  

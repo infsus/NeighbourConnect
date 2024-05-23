@@ -1,6 +1,8 @@
 import React from "react";
 import { buildingsData, entrancesData } from "../assets/buildingsData/buildingsData";
 import { BuildingEntraceProps } from "./BuildingEntrance";
+import "../assets/css/components/BuildingDetails.css"
+
 interface BuildingDetailsProps {
     buildingId: number;
     entrances: BuildingEntraceProps[]
@@ -10,14 +12,18 @@ const BuildingDetails: React.FC<BuildingDetailsProps> = ({ buildingId, entrances
     const filteredEntrances = entrancesData.filter(element => element.parentID === buildingId);
 
     const renderedEntrances = filteredEntrances.map(entrance => (
-        <div key={entrance.parentID}>
-            Ulaz broj: {entrance.entranceNumber}
-            Ulica: {entrance.street}
+        <div key={entrance.parentID} className="detail-content">
+            <p>{entrance.entranceNumber}</p>
+            <p>{entrance.street}</p>
         </div>
     ));
     return (
-        <div>
-            Ulazi:
+        <div className="details-container">
+            <h4>Ulazi</h4>
+            <div className="title">
+                <p>Broj ulaza</p>
+                <p>Ulica</p>
+            </div>
             {renderedEntrances}
         </div>
     );
