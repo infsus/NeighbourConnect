@@ -1,5 +1,5 @@
 import { BuildingProps } from "../../components/Building";
-
+import { BuildingEntraceProps } from "../../components/BuildingEntrance";
 const buildingsData: BuildingProps[] = [
     {
       id: 1,
@@ -141,6 +141,18 @@ const buildingsData: BuildingProps[] = [
       city: 'Zagreb',
       street: 'Main Street'
     }
+];
+const entrancesData: BuildingEntraceProps[] = [
+    {
+        buildingParent: 1,
+        entranceNumber: 1,
+        street: "Vukovarska"
+    },
+    {
+        buildingParent: 1,
+        entranceNumber: 2,
+        street: "Slavonska"
+    },
 ];
 buildingsData.forEach((element) =>
 {
