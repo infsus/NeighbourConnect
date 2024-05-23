@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Button, Card} from "react-bootstrap";
-
+import BuildingDetails from "./BuildingDetails";
+import { entrancesData } from "../assets/buildingsData/buildingsData";
 export interface BuildingProps 
 {
     id: number;
@@ -31,6 +32,7 @@ const Building: React.FC<BuildingProps> = ({id, src, name, city, street}) =>
                         Lokacija: {street}, {city}
                     </Card.Text>
                 </Card.Body>
+                {showDetail == true ? <BuildingDetails buildingId={id} entrances={entrancesData}/> : <></>}
                 <Button onClick={() => expandInfo(id)}>
                     {showDetail==true ? "Pokaži više informacija" : "Makni informacije"}</Button>
             </Card>
