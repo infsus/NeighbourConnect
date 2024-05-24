@@ -11,6 +11,7 @@ export interface BuildingProps
     city: string;
     street: string;
     streetNumber: number;
+    [key: string]: any;
 
 }
 const Building: React.FC<BuildingProps> = ({id, src, name, city, street, streetNumber}) => 
