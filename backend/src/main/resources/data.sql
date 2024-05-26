@@ -120,12 +120,12 @@ values (2, 2, 3, 'Kompanija 2', '00000000011', null, 37, 18);
 /* Buildings */
 insert into meta (id, "createdById", "modifiedById")
 values (19, 1, 1);
-insert into buildings (id, "buildingStartDate", "buildingEndDate", "metaId")
-values (1, now(), now() + '1 year'::interval, 19);
+insert into buildings (id, "buildingStartDate", "buildingEndDate", "metaId", name)
+values (1, now(), now() + '1 year'::interval, 19, 'Building 1');
 insert into meta (id, "createdById", "modifiedById")
 values (20, 1, 1);
-insert into buildings (id, "buildingStartDate", "buildingEndDate", "metaId")
-values (2, now(), now() + '2 year'::interval, 20);
+insert into buildings (id, "buildingStartDate", "buildingEndDate", "metaId", name)
+values (2, now(), now() + '2 year'::interval, 20, 'Building 2');
 
 /* Contracts */
 insert into meta (id, "createdById", "modifiedById")
