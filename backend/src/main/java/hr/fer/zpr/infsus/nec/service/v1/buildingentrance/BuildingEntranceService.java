@@ -58,4 +58,16 @@ public class BuildingEntranceService implements IBuildingEntranceService {
         );
         return buildingEntranceRepository.save(buildingEntrance);
     }
+
+    @Override
+    public void delete(User curentUser, Integer id) {
+        BuildingEntrance buildingEntrance = buildingEntranceRepository.findById(id).orElse(null);
+        if (buildingEntrance == null) {
+            throw new IllegalArgumentException("Building entrance not found");
+        }
+
+        Meta meta = metaService.markDeleted(buildingEntrance.getMeta().getId(), curentUser);
+        buildingEntrance.setMeta(meta);
+        buildingEntranceRepository.save(buildingEntrance);
+    }
 }

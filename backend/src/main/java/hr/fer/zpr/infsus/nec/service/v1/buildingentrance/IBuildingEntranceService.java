@@ -14,4 +14,6 @@ public interface IBuildingEntranceService {
             Integer streetId,
             Integer streetNumber
     );
+
+    void delete(User curentUser, Integer id);
 }
