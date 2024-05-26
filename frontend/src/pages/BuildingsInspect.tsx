@@ -31,7 +31,7 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
             if (response.ok) {
               const data = await response.json(); // Extract JSON data from the response
               console.log("DATA: ", data);
-              setFetchedBuildings(data); // Update the state with the fetched data
+              setFetchedBuildings(data.content); // Update the state with the fetched data
             } else {
               console.error('Failed to fetch buildings:', response.statusText);
             }
