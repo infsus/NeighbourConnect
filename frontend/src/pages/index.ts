@@ -1,11 +1,13 @@
 import Login from './Login';
 import Home from './Home';
 import BuildingsInspect from './BuildingsInspect';
+import StreetTable from './StreetTable';
 
 const pages = {
   login: { component: Login, url: '/' },
   home: { component: Home, url: '/home' },
-  buildings: { component: BuildingsInspect, url: '/buildings' }
+  buildings: { component: BuildingsInspect, url: '/buildings' },
+  streets: { component: StreetTable, url: '/streets' }
 };
 
 export default pages;
