@@ -14,15 +14,22 @@ export interface Category {
     data: string[] | number[];
 }
 
+export interface DropdownFilter {
+    category: string;
+    value: string;
+}
+
 interface FilterProps {
     categoryTypes: FilterElement[];
     categories: Category[];
     usedCategories: string[];
+    dropdownFilterValues: DropdownFilter[];
     onFilterChange: (value: string) => void;
     onCategoryToggle: (value: string[]) => void;
+    onDropdownSelect: (value: DropdownFilter[]) => void;
 }
 
-const Filter: React.FC<FilterProps> = ({ categoryTypes, categories, usedCategories, onFilterChange, onCategoryToggle }) => {
+const Filter: React.FC<FilterProps> = ({ categoryTypes, categories, usedCategories, dropdownFilterValues, onFilterChange, onCategoryToggle, onDropdownSelect }) => {
     
     const [categoryState, setCategoryState] = useState<FilterElement[]>(categoryTypes);
     const [filterValue, setFilterValue] = useState<string>("");
@@ -33,7 +40,11 @@ const Filter: React.FC<FilterProps> = ({ categoryTypes, categories, usedCategori
 
     useEffect(() => {
         //console.log("Used Categories Prop Updated:", usedCategories);
-    }, [usedCategories]);   
+    }, [usedCategories]);
+    
+    useEffect(() => {
+
+    }, [dropdownFilterValues])
     // Enables/disables category
     const toggleCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
         const updatedCategories = categoryState.map(category => {
@@ -62,8 +73,24 @@ const Filter: React.FC<FilterProps> = ({ categoryTypes, categories, usedCategori
         onFilterChange(e.target.value);
     };
 
-    const selectCategory = (eventKey: string | null) => {
-        console.log(eventKey);
+    const selectCategory = (eventName: string, eventKey: string) => {
+        //console.log(eventKey);
+        //console.log(eventName);
+        if (dropdownFilterValues.length == 0) {
+            onDropdownSelect([{category: eventName, value: eventKey}]);
+        }
+        else {
+            const newDropdownFilterValues = dropdownFilterValues.filter(element => {
+                if (element.category != eventName) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+            //console.log(newDropdownFilterValues);
+            onDropdownSelect([{category: eventName, value: eventKey}, ...newDropdownFilterValues]);
+        }
     };
 
     return (
@@ -91,8 +118,7 @@ const Filter: React.FC<FilterProps> = ({ categoryTypes, categories, usedCategori
                     key={index} 
                     id={`categories-dropdown-${index}`} 
                     title={category.name} 
-                    disabled={!category.chosen}
-                    onSelect={selectCategory}
+                    onSelect={(eventKey) => selectCategory(category.name, eventKey)}
                 >
                     {categories.filter((c) => c.name === category.name)
                         .map((element) => (
