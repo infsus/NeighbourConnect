@@ -3,6 +3,7 @@ package hr.fer.zpr.infsus.nec.rest.v1.street;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import hr.fer.zpr.infsus.nec.common.dto.PageableResponseDTO;
 import hr.fer.zpr.infsus.nec.domain.v1.*;
 import hr.fer.zpr.infsus.nec.rest.v1.street.dto.StreetCreateRequestDTO;
 import hr.fer.zpr.infsus.nec.rest.v1.street.dto.StreetSimpleResponseDTO;
@@ -44,16 +45,18 @@ public class StreetController {
 
     @GetMapping
     @Secured("ROLE_ADMINISTRATOR")
-    public ResponseEntity<List<StreetSimpleResponseDTO>> getAll(
+    public ResponseEntity<PageableResponseDTO<List<StreetSimpleResponseDTO>>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
         Page<Street> streets = streetService.getAll(PageRequest.of(page, size));
-        return ResponseEntity.ok(streets.stream().map(street -> new StreetSimpleResponseDTO(
+        List<StreetSimpleResponseDTO> content = streets.stream().map(street -> new StreetSimpleResponseDTO(
                 street.getId(),
                 street.getName(),
                 street.getPlace().getName())
-                ).toList());
+                ).toList();
+        long count = streetService.count();
+        return ResponseEntity.ok(new PageableResponseDTO<>(count, content));
     }
 
     @PostMapping

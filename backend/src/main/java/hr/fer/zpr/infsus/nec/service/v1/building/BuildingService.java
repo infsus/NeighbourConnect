@@ -149,4 +149,16 @@ public class BuildingService implements IBuildingService {
         // Delete building
         buildingRepository.save(building);
     }
+
+    @Override
+    public long count() {
+        Meta metaProbe = new Meta();
+        metaProbe.setIsDeleted(false);
+        Building probe = new Building();
+        probe.setMeta(metaProbe);
+
+        Example<Building> example = Example.of(probe);
+
+        return buildingRepository.count(example);
+    }
 }

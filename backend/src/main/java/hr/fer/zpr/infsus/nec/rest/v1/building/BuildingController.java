@@ -3,6 +3,7 @@ package hr.fer.zpr.infsus.nec.rest.v1.building;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import hr.fer.zpr.infsus.nec.common.dto.PageableResponseDTO;
 import hr.fer.zpr.infsus.nec.domain.v1.Building;
 import hr.fer.zpr.infsus.nec.domain.v1.Person;
 import hr.fer.zpr.infsus.nec.domain.v1.Resident;
@@ -46,12 +47,12 @@ public class BuildingController {
 
     @GetMapping
     @Secured("ROLE_ADMINISTRATOR")
-    public ResponseEntity<List<BuildingMasterDetailResponseDTO>> getAll(
+    public ResponseEntity<PageableResponseDTO<List<BuildingMasterDetailResponseDTO>>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
         Page<Building> buildings = buildingService.getAll(PageRequest.of(page, size));
-        return ResponseEntity.ok(buildings.stream().map(building -> new BuildingMasterDetailResponseDTO(
+        List<BuildingMasterDetailResponseDTO> content = buildings.stream().map(building -> new BuildingMasterDetailResponseDTO(
                 building.getId(),
                 building.getBuildingStartDate(),
                 building.getBuildingEndDate(),
@@ -68,7 +69,9 @@ public class BuildingController {
                             buildingEntrance.getStreetNumber().toString()
                     );
                 }).toList()
-        )).toList());
+        )).toList();
+        long count = buildingService.count();
+        return ResponseEntity.ok(new PageableResponseDTO<>(count, content));
     }
 
     @PostMapping

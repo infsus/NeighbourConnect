@@ -19,4 +19,6 @@ public interface IStreetService {
     Street update(User currentUser, Integer id, Integer placeId, String name);
 
     void delete(User currentUser, Integer id);
+
+    long count();
 }
