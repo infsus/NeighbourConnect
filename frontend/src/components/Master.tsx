@@ -32,6 +32,29 @@ const Master: React.FC<MasterProps> = ({ m_categories, m_values }) => {
         setShowDetail(prevShowDetail => !prevShowDetail);
         //console.log(`CLICKED ON BUTTON related to building: ${buildingId}`);
     }
+
+    //console.log("M VALUES: ", m_values);
+    const [fetchedEntrances, setFetchedEntrances] = useState<EntranceProps[]>([]);
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //       try {
+    //         const response = await api.buildings.getBuildings(0, 10); // Call the API function to fetch buildings
+    //         console.log("RESPONSE: ", response);
+    //         if (response.ok) {
+    //           const data = await response.json(); // Extract JSON data from the response
+    //           console.log("DATA: ", data);
+    //           setFetchedEntrances(data.content); // Update the state with the fetched data
+    //         } else {
+    //           console.error('Failed to fetch buildings:', response.statusText);
+    //         }
+    //       } catch (error) {
+    //         console.error('Error fetching buildings:', error);
+    //       }
+    //     };
+    
+    //     fetchData(); // Call the fetchData function when the component mounts
+    //   }, []); 
     //"(" ne smije ici u novu liniju
     return (
         <div className="info-container">
