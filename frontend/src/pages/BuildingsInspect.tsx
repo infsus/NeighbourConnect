@@ -3,9 +3,11 @@ import Building, { BuildingProps } from "../components/Building";
 import "../assets/css/pages/BuildingsInspect.css";
 import Filter, { Category, FilterElement, DropdownFilter } from "../components/Filter";
 import { categoryTypes, categories } from "../assets/buildingsData/buildingsData";
-
+import Master, {MasterBuildingProps} from "../components/Master";
+import { masterData, masterCategories, entranceData, entranceCategories } from "../assets/buildingsData/buildingsData";
 interface BuildingsProps {
-    buildings: BuildingProps[];
+    //buildings: BuildingProps[];
+    buildings: MasterBuildingProps[];
 }
 
 const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
@@ -44,17 +46,7 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
                     if (filterValue === "" && dropdownFilterValues.length == 0) {
                         return true;
                     }
-                    //ne zelimo da se ista komponenta rendera vise puta pa nemre ic for each il tak nes
-                    // return chosenCategories.some(category => {
-                    //     const propertyValue = building[category as keyof BuildingProps];
-                    //     console.log("PROPERTY: ", propertyValue);
-                    //     if (typeof propertyValue === 'string') {
-                    //         const lowerCaseValue = propertyValue.toLowerCase()
-                    //         return lowerCaseValue.includes(filterValue.toLowerCase());
-                    //     }
-                    //     return false;
-                    // });
-                    
+
                     let matchesTextFilter: boolean = false;
                     if (chosenCategories.length == 0 && dropdownFilterValues.length == 0) {
                        return true;
@@ -84,7 +76,8 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
                     else return matchesTextFilter && matchesDropdownFilters;
 
                 }).map(building => (
-                    <Building key={building.id} {...building} />
+                    //<Building key={building.id} {...building} />
+                    <Master m_categories={masterCategories} m_values={building}/>
                 ))}
             </div>
         </div>

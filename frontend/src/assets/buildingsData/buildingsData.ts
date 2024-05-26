@@ -1,7 +1,8 @@
 import { BuildingProps } from "../../components/Building";
-import { BuildingEntraceProps } from "../../components/BuildingEntrance";
+import { BuildingEntranceProps } from "../../components/BuildingEntrance";
 import { FilterElement, Category } from "../../components/Filter";
-
+import { EntranceProps } from "../../components/Master";
+import { MasterBuildingProps } from "../../components/Master";
 const cities: string[] = [
   "Zagreb",
   "Rijeka",
@@ -227,7 +228,7 @@ const categories: Category[] = [
     data: streetNumbers
   }
 ];
-const entrancesData: BuildingEntraceProps[] = [
+const entrancesData: BuildingEntranceProps[] = [
   {
     parentID: 1,
     entranceNumber: 1,
@@ -269,6 +270,76 @@ const entrancesData: BuildingEntraceProps[] = [
     street: "Slavonska"
   },
 ];
+
+const masterCategories: string[] = [
+  "id",
+  "buildingStartDate",
+  "buildingEndDate",
+  "name",
+  "city"
+];
+const masterData: MasterBuildingProps[] = [
+  {
+    id: 1,
+    buildingStartDate: new Date("2022-03-25"),
+    buildingEndDate: new Date("2022-03-25"),
+    name: "Name",
+    city: "Zagreb"
+  },
+  {
+    id: 2,
+    buildingStartDate: new Date("2022-03-25"),
+    buildingEndDate: new Date("2022-03-25"),
+    name: "Name2",
+    city: "Rijeka"
+  },
+  {
+    id: 3,
+    buildingStartDate: new Date("2022-03-25"),
+    buildingEndDate: new Date("2022-03-25"),
+    name: "Name3",
+    city: "Osijek"
+  },
+  {
+    id: 4,
+    buildingStartDate: new Date("2022-03-25"),
+    buildingEndDate: new Date("2022-03-25"),
+    name: "Name4",
+    city: "Split"
+  }
+]
+const entranceCategories: string [] = [
+  "id",
+  "tenantRepresentative",
+  "streetName",
+  "streetNumber"
+];
+const entranceData: EntranceProps[] = [
+  {
+    id: 1,
+    tenantRepresentative: "M P",
+    streetName: "Vukovarska",
+    streetNumber: "12"
+  },
+  {
+    id: 2,
+    tenantRepresentative: "K D",
+    streetName: "Slavonska",
+    streetNumber: "17"
+  },
+  {
+    id: 3,
+    tenantRepresentative: "I K",
+    streetName: "Zagrebacka",
+    streetNumber: "22"
+  },
+  {
+    id: 4,
+    tenantRepresentative: "M C",
+    streetName: "Kolodvorska",
+    streetNumber: "18"
+  }
+];
 buildingsData.forEach((element, index) => {
   element.src = `src/assets/buildingsImages/building${element.id % 10 + 1}.jpg`;
   element.city = cities[index % cities.length];
@@ -276,8 +347,12 @@ buildingsData.forEach((element, index) => {
   element.streetNumber = streetNumbers[index % streetNumbers.length];
 })
 export {
+  masterCategories,
+  masterData,
   buildingsData,
   entrancesData,
+  entranceData,
+  entranceCategories,
   categoryTypes,
   categories
 }
