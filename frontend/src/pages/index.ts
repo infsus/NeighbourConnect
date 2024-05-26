@@ -7,7 +7,7 @@ const pages = {
   login: { component: Login, url: '/' },
   home: { component: Home, url: '/home' },
   buildings: { component: BuildingsInspect, url: '/buildings' },
-  create: { component: Create, url: '/create' }
+  create: { component: Create, url: '/buildings/create' }
 };
 
 export default pages;

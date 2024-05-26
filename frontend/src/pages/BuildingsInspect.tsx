@@ -22,7 +22,7 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await api.buildings.getBuildings(0, 2); // Call the API function to fetch buildings
+            const response = await api.buildings.getBuildings(0, 10); // Call the API function to fetch buildings
             console.log("RESPONSE: ", response);
             if (response.ok) {
               const data = await response.json(); // Extract JSON data from the response

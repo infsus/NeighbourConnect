@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { masterCategories } from "../assets/buildingsData/buildingsData";
 import { BuildingProps } from "../components/Building";
 import { Button, Card, FormControl, FormGroup, FormLabel } from "react-bootstrap";
@@ -19,19 +19,55 @@ const Create: React.FC<null> = () => {
         entrances: []
     });
 
+    useEffect(() => {
+        //console.log("Used Categories Prop Updated:", usedCategories);
+    }, [formData]);
+
+    
+
     const [entranceFields, setEntranceFields] = useState<CreateBuildingEntranceBody[]>([]);
+
+    useEffect(() => {
+        //console.log("Used Categories Prop Updated:", usedCategories);
+    }, [entranceFields]);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
+        console.log("FORM DATA: ", formData);
     };
+
+    const formDataNotComplete = (data: CreateBuildingBody) => {
+        return (
+            data.buildingStartDate === "" ||
+            data.buildingEndDate === "" ||
+            data.name === "" ||
+            data.entrances.length === 0
+        );
+    };
+
+    const entranceDataComplete = (data: CreateBuildingBody) => {
+        let complete = true;
+        data.entrances.forEach(entrance => {
+            if (
+                entrance.streetId == 0 || 
+                entrance.streetNumber == 0 ||
+                entrance.tenantRepresentativeId == 0
+        ) {
+            complete = false;
+        }
+        })
+        return complete;
+    }
 
     const handleEntranceChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         const newEntrances = [...entranceFields];
         newEntrances[index] = { ...newEntrances[index], [name]: value };
         setEntranceFields(newEntrances);
+        console.log("NEW ENTRANCES: ", newEntrances);
         setFormData({ ...formData, entrances: newEntrances });
+        console.log("FORM: ", formData);
     };
 
     const addEntranceField = () => {
@@ -46,7 +82,7 @@ const Create: React.FC<null> = () => {
 
     const submitChanges = async () => {
         try {
-            const response = await api.buildings.createBuilding(formData);
+            const response = await api.buildings.createBuilding(JSON.stringify(formData));
             if (response.ok) {
                 console.log("Changes submitted successfully");
             } else {
@@ -100,7 +136,10 @@ const Create: React.FC<null> = () => {
                     Add Entrance
                 </Button>
             </Card.Body>
-            <Button className="btn-success" onClick={submitChanges}>Confirm</Button>
+            <Button className="btn-success" onClick={submitChanges}
+            disabled = {
+                formDataNotComplete(formData) || !entranceDataComplete(formData)
+            }>Confirm</Button>
             <Button className="btn-danger">Cancel</Button>
         </Card>
     );
