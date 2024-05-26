@@ -7,6 +7,9 @@ import Master, { MasterBuildingProps } from "../components/Master";
 import { masterData, masterCategories, entranceData, entranceCategories } from "../assets/buildingsData/buildingsData";
 import { api } from "../api";
 import "../assets/css/components/BuildingDetails.css"
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+
 
 interface BuildingsProps {
     //buildings: BuildingProps[];
@@ -18,6 +21,7 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
     const [dropdownFilterValues, setDropdownFilterValues] = useState<DropdownFilter[]>([]);
     const [chosenCategories, setChosenCategories] = useState<string[]>([]);
     const [fetchedBuildings, setFetchedBuildings] = useState<MasterBuildingProps[]>([]); // State variable for fetched buildings
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,6 +49,10 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
         setFilterValue(newFilterValue);
     };
 
+    const handleCreate = () => {
+        console.log("NAVIGATE");
+        navigate("/buildings/create"); // Redirect to the create building page
+    }
     const handleDropdownFilterSelect = (newDropdownFilters: DropdownFilter[]) => {
         //console.log(newDropdownFilters);
         setDropdownFilterValues(newDropdownFilters);
@@ -65,6 +73,9 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
                 onCategoryToggle={handleFilteringCategories}
                 onDropdownSelect={handleDropdownFilterSelect}
             />
+            <Button className="btn-success" onClick={handleCreate}>
+                    Add building
+            </Button>
             <div className="buildings-container">
                 <div className="details-container">
                     <div className="title">
@@ -73,6 +84,7 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
                         ))}
                     </div>
                 </div>
+                
                 {fetchedBuildings.filter(building => {
                     console.log("BUILDING: ", building);
                     //console.log("FILTER VALUE: ", filterValue);
