@@ -6,6 +6,7 @@ import { categoryTypes, categories } from "../assets/buildingsData/buildingsData
 import Master, { MasterBuildingProps } from "../components/Master";
 import { masterData, masterCategories, entranceData, entranceCategories } from "../assets/buildingsData/buildingsData";
 import { api } from "../api";
+import "../assets/css/components/BuildingDetails.css"
 
 interface BuildingsProps {
     //buildings: BuildingProps[];
@@ -21,7 +22,7 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await api.buildings.getBuildings(1, 2); // Call the API function to fetch buildings
+            const response = await api.buildings.getBuildings(0, 2); // Call the API function to fetch buildings
             console.log("RESPONSE: ", response);
             if (response.ok) {
               const data = await response.json(); // Extract JSON data from the response
@@ -72,7 +73,7 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
                         ))}
                     </div>
                 </div>
-                {_buildings.filter(building => {
+                {fetchedBuildings.filter(building => {
                     //console.log("FILTER VALUE: ", filterValue);
                     if (filterValue === "" && dropdownFilterValues.length == 0) {
                         return true;

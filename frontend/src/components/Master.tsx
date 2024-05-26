@@ -36,7 +36,7 @@ const Master: React.FC<MasterProps> = ({ m_categories, m_values }) => {
     //"(" ne smije ici u novu liniju
     return (
         <div className="info-container">
-            <Card style={{ height: showDetail ? 'auto' : '250px' }}>
+            <Card style={{ height: showDetail ? 'auto' : '150px' }}>
                 <Card.Body>
                     <TableRow isMaster={true} t_values={m_values} callbackFunc={null} />
                 </Card.Body>

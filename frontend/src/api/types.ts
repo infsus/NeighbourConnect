@@ -7,13 +7,13 @@ interface Api {
     options: Options
 }
 
-interface CreateBuildingEntranceBody {
+export interface CreateBuildingEntranceBody {
     tenantRepresentativeId: number | null,
     streetId: number,
     streetNumber: number
 };
 
-interface CreateBuildingBody {
+export interface CreateBuildingBody {
     buildingStartDate: string,
     buildingEndDate: string,
     name: string,
