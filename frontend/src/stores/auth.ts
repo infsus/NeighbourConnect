@@ -23,8 +23,13 @@ const logOut = () => {
     localStorage.removeItem(CREDENTIALS);
 }
 
+const getToken = () => {
+    return localStorage.getItem(CREDENTIALS);
+}
+
 export const authStore = {
     isLogged,
     logIn,
-    logOut
+    logOut,
+    getToken
 };
