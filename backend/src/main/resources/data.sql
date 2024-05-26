@@ -5,13 +5,13 @@ alter table persons alter column "metaId" drop not null;
 alter table roles alter column "metaId" drop not null;
 
 insert into roles (id, name, "metaId")
-values (1, 'Administrator', null);
+values (1, 'ROLE_ADMINISTRATOR', null);
 
 insert into persons (id, "firstName", "lastName", pid, "dateOfBirth", "placeOfBirthId", "placeOfResidenceId", "metaId")
 values (1, 'Admin', 'Admin', '00000000000', now(), null, null, null);
 
 insert into users (id, "roleId", email, password, enabled)
-values (1, 1, 'admin@gmail.com', 'admin123', true);
+values (1, 1, 'admin@gmail.com', '$2a$10$kkHyzDBA5cniJYTWUa8AWONDPrQso5C.upLwAvwsP5EfqI3wzXWxm', true); /* admin123 */
 
 insert into meta (id, "createdById", "modifiedById")
 values (1, 1, 1);
@@ -28,22 +28,22 @@ alter table roles alter column "metaId" set not null;
 insert into meta (id, "createdById", "modifiedById")
 values (3, 1, 1);
 insert into roles (id, name, "metaId")
-values (2, 'BuildingManager', 3);
+values (2, 'ROLE_BUILDING_MANAGER', 3);
 
 insert into meta (id, "createdById", "modifiedById")
 values (4, 1, 1);
 insert into roles (id, name, "metaId")
-values (3, 'TenantRepresentative', 4);
+values (3, 'ROLE_TENANT_REPRESENTATIVE', 4);
 
 insert into meta (id, "createdById", "modifiedById")
 values (5, 1, 1);
 insert into roles (id, name, "metaId")
-values (4, 'Resident', 5);
+values (4, 'ROLE_RESIDENT', 5);
 
 insert into meta (id, "createdById", "modifiedById")
 values (6, 1, 1);
 insert into roles (id, name, "metaId")
-values (5, 'Guest', 6);
+values (5, 'ROLE_GUEST', 6);
 
 /* Users */
 insert into meta (id, "createdById", "modifiedById")
@@ -51,7 +51,7 @@ values (7, 1, 1);
 insert into persons (id, "firstName", "lastName", pid, "dateOfBirth", "placeOfBirthId", "placeOfResidenceId", "metaId")
 values (2, 'Ime 1', 'Prezime 1', '00000000001', null, null, null, 7);
 insert into users (id, "roleId", email, password, enabled)
-values (2, 2, 'email1@gmail.com', 'lozinka1', true);
+values (2, 2, 'email1@gmail.com', '$2a$10$a3jI1zCijjKpBuyCwcsKqudxNo.wNnhCEUaf1ycn/KRXN6wMkoC3u', true); /* karlo123 */
 insert into managers (id, "dateOfEmployment")
 values (2, now());
 
@@ -60,7 +60,7 @@ values (8, 1, 1);
 insert into persons (id, "firstName", "lastName", pid, "dateOfBirth", "placeOfBirthId", "placeOfResidenceId", "metaId")
 values (3, 'Ime 2', 'Prezime 2', '00000000002', null, null, null, 8);
 insert into users (id, "roleId", email, password, enabled)
-values (3, 3, 'email2@gmail.com', 'lozinka2', true);
+values (3, 3, 'email2@gmail.com', '$2a$10$a3jI1zCijjKpBuyCwcsKqudxNo.wNnhCEUaf1ycn/KRXN6wMkoC3u', true); /* karlo123 */
 insert into residents (id, "acceptsBeRepresentative")
 values (3, true);
 
@@ -69,7 +69,7 @@ values (9, 1, 1);
 insert into persons (id, "firstName", "lastName", pid, "dateOfBirth", "placeOfBirthId", "placeOfResidenceId", "metaId")
 values (4, 'Ime 3', 'Prezime 3', '00000000003', null, null, null, 9);
 insert into users (id, "roleId", email, password, enabled)
-values (4, 3, 'email3@gmail.com', 'lozinka3', true);
+values (4, 3, 'email3@gmail.com', '$2a$10$a3jI1zCijjKpBuyCwcsKqudxNo.wNnhCEUaf1ycn/KRXN6wMkoC3u', true); /* karlo123 */
 insert into residents (id, "acceptsBeRepresentative")
 values (4, false);
 
