@@ -2,7 +2,7 @@
 
 -- changeset C_000:06-create-table-companies
 CREATE TABLE IF NOT EXISTS "companies" (
-    "id" integer PRIMARY KEY,
+    "id" serial PRIMARY KEY,
     "ownerId" integer NOT NULL,
     "streetId" integer NOT NULL,
     "name" varchar(50) NOT NULL,

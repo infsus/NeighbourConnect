@@ -2,7 +2,7 @@
 
 -- changeset C_000:13-create-table-contacts
 CREATE TABLE IF NOT EXISTS "contacts" (
-    "id" integer PRIMARY KEY,
+    "id" serial PRIMARY KEY,
     "personId" integer NOT NULL,
     "contactTypeId" integer NOT NULL,
     "contact" varchar(50) UNIQUE NOT NULL,

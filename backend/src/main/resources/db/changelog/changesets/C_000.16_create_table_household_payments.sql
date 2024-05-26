@@ -2,7 +2,7 @@
 
 -- changeset C_000:16-create-table-household-payments
 CREATE TABLE IF NOT EXISTS "household_payments" (
-    "id" integer PRIMARY KEY,
+    "id" serial PRIMARY KEY,
     "buildingInvoiceId" integer NOT NULL,
     "householdId" integer NOT NULL,
     "priceModifier" decimal NOT NULL DEFAULT 1,

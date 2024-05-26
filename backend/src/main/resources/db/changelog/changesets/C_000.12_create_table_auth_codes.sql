@@ -2,7 +2,7 @@
 
 -- changeset C_000:12-create-table-auth-codes
 CREATE TABLE IF NOT EXISTS "auth_codes" (
-    "id" integer PRIMARY KEY,
+    "id" serial PRIMARY KEY,
     "userId" integer NOT NULL,
     "code" varchar(6) NOT NULL,
     "expiresAt" date NOT NULL,

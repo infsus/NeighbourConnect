@@ -2,7 +2,7 @@
 
 -- changeset C_000:26-create-table-rooms
 CREATE TABLE IF NOT EXISTS "rooms" (
-    "id" integer PRIMARY KEY,
+    "id" serial PRIMARY KEY,
     "householdId" integer NOT NULL,
     "roomTypeId" integer NOT NULL,
     "quadrature" decimal NOT NULL,
