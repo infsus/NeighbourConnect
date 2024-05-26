@@ -4,7 +4,7 @@ import { BuildingProps } from "../components/Building";
 import { Button, Card, FormControl, FormGroup, FormLabel } from "react-bootstrap";
 import { api } from "../api";
 import { CreateBuildingBody, CreateBuildingEntranceBody } from "../api/types";
-
+import { useNavigate } from "react-router-dom";
 interface CreateProps {
     c_categories: string[];
     c_values: BuildingProps;
@@ -23,7 +23,7 @@ const Create: React.FC<null> = () => {
         //console.log("Used Categories Prop Updated:", usedCategories);
     }, [formData]);
 
-    
+    const navigate = useNavigate();
 
     const [entranceFields, setEntranceFields] = useState<CreateBuildingEntranceBody[]>([]);
 
@@ -91,7 +91,12 @@ const Create: React.FC<null> = () => {
         } catch (error) {
             console.error("Error submitting changes:", error);
         }
+        navigate('/buildings');
     };
+
+    const abortCreate = () => {
+        navigate('/buildings');
+    }
 
     return (
         <Card>
@@ -140,7 +145,7 @@ const Create: React.FC<null> = () => {
             disabled = {
                 formDataNotComplete(formData) || !entranceDataComplete(formData)
             }>Confirm</Button>
-            <Button className="btn-danger">Cancel</Button>
+            <Button className="btn-danger" onClick={abortCreate}>Cancel</Button>
         </Card>
     );
 };
