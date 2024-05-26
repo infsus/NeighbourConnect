@@ -35,7 +35,7 @@ const Master: React.FC<MasterProps> = ({ m_categories, m_values }) => {
     }
     //"(" ne smije ici u novu liniju
     return (
-        <div>
+        <div className="info-container">
             <Card style={{ height: showDetail ? 'auto' : '300px' }}>
                 <Card.Body>
                     <div className="details-container">
@@ -44,12 +44,14 @@ const Master: React.FC<MasterProps> = ({ m_categories, m_values }) => {
                                 <p>{category}</p>
                             ))}
                         </div>
-                        <TableRow t_values={m_values} />
+                        <TableRow isMaster = {true} t_values={m_values} />
                     </div>
                 </Card.Body>
                 {showDetail == true ? <Detail entrances={entranceData} d_categories={entranceCategories} /> : <></>}
-                <Button onClick={() => expandInfo(m_values.id)}>
-                    {showDetail == false ? "Pokaži više informacija" : "Makni informacije"}</Button>
+                <div className="expand-button-container">
+                <Button className="expand-button" onClick={() => expandInfo(m_values.id)}>
+                    {showDetail == false ? "Proširi" : "Sakrij"}</Button>
+                </div>
             </Card>
         </div>
     );

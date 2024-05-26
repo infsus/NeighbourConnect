@@ -18,7 +18,7 @@ interface DetailProps {
 const Detail: React.FC<DetailProps> = ({ entrances, d_categories }) => {
     const allEntrances = entrances.map(entrance => (
         <div className="detail-content">
-            <TableRow t_values={entrance} />
+            <TableRow isMaster={false} t_values={entrance} />
         </div>
     ))
     return (
