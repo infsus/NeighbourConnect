@@ -16,7 +16,7 @@ import lombok.Setter;
 @Table(name = "households")
 public class Household {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

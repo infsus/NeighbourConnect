@@ -287,4 +287,31 @@ values (49, 1, 1);
 insert into contacts (id, "personId", "contactTypeId", contact, "metaId")
 values (3, 3, 2, '+385919384391', 49);
 
+/* Reset id sequences */
+ALTER SEQUENCE "auth_codes_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "building_entrances_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "building_invoices_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "buildings_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "companies_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "complaints_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "contact_types_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "contacts_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "contracts_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "countries_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "household_adverts_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "household_payments_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "households_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "managers_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "meta_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "notification_types_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "notifications_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "persons_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "places_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "residents_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "roles_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "room_types_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "rooms_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "streets_id_seq" RESTART WITH 100;
+ALTER SEQUENCE "users_id_seq" RESTART WITH 100;
+
 COMMIT;

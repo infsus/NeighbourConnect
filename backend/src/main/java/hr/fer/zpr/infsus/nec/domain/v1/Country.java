@@ -19,7 +19,7 @@ import java.util.Set;
 @Table(name = "countries")
 public class Country {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

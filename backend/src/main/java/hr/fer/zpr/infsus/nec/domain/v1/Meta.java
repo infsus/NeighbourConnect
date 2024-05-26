@@ -2,7 +2,6 @@ package hr.fer.zpr.infsus.nec.domain.v1;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,12 +11,11 @@ import java.time.Instant;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "meta")
+@Table(name = "meta", schema = "public")
 public class Meta {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -43,4 +41,15 @@ public class Meta {
     @Column(name = "\"isDeleted\"", nullable = false)
     private Boolean isDeleted = false;
 
+    public Meta(User createdBy, User modifiedBy) {
+        this(createdBy, modifiedBy, Instant.now(), Instant.now(), false);
+    }
+
+    public Meta(User createdBy, User modifiedBy, Instant createdAt, Instant modifiedAt, Boolean isDeleted) {
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+        this.isDeleted = isDeleted;
+    }
 }

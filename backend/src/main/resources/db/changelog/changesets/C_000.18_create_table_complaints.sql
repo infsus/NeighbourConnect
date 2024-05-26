@@ -2,7 +2,7 @@
 
 -- changeset C_000:18-create-table-complaints
 CREATE TABLE IF NOT EXISTS "complaints" (
-    "id" integer PRIMARY KEY,
+    "id" serial PRIMARY KEY,
     "householdId" integer NOT NULL,
     "title" varchar(50) NOT NULL,
     "message" varchar(200) NOT NULL,

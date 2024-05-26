@@ -15,7 +15,7 @@ import lombok.Setter;
 @Table(name = "building_entrances")
 public class BuildingEntrance {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -42,4 +42,11 @@ public class BuildingEntrance {
     @JoinColumn(name = "\"metaId\"", nullable = false)
     private Meta meta;
 
+    public BuildingEntrance(Building building, Resident tenantRepresentative, Street street, Integer streetNumber, Meta meta) {
+        this.building = building;
+        this.tenantRepresentative = tenantRepresentative;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.meta = meta;
+    }
 }

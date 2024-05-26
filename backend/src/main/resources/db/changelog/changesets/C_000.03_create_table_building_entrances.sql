@@ -2,7 +2,7 @@
 
 -- changeset C_000:03-create-table-building-entrances
 CREATE TABLE IF NOT EXISTS "building_entrances" (
-    "id" integer PRIMARY KEY,
+    "id" serial PRIMARY KEY,
     "buildingId" integer NOT NULL,
     "tenantRepresentativeId" integer,
     "streetId" integer NOT NULL,

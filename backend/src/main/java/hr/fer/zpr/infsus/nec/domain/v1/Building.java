@@ -3,7 +3,6 @@ package hr.fer.zpr.infsus.nec.domain.v1;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,12 +14,11 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "buildings")
 public class Building {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -45,4 +43,10 @@ public class Building {
     @OneToMany(mappedBy = "building")
     private Set<BuildingEntrance> buildingEntrances = new LinkedHashSet<>();
 
+    public Building(LocalDate buildingStartDate, LocalDate buildingEndDate, Meta meta, String name) {
+        this.buildingStartDate = buildingStartDate;
+        this.buildingEndDate = buildingEndDate;
+        this.meta = meta;
+        this.name = name;
+    }
 }
