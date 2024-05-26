@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Building, { BuildingProps } from "../components/Building";
 import "../assets/css/pages/BuildingsInspect.css";
 import Filter, { Category, FilterElement, DropdownFilter } from "../components/Filter";
 import { categoryTypes, categories } from "../assets/buildingsData/buildingsData";
 import Master, { MasterBuildingProps } from "../components/Master";
 import { masterData, masterCategories, entranceData, entranceCategories } from "../assets/buildingsData/buildingsData";
+import { api } from "../api";
+
 interface BuildingsProps {
     //buildings: BuildingProps[];
     buildings: MasterBuildingProps[];
@@ -14,7 +16,29 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
     const [filterValue, setFilterValue] = useState<string>("");
     const [dropdownFilterValues, setDropdownFilterValues] = useState<DropdownFilter[]>([]);
     const [chosenCategories, setChosenCategories] = useState<string[]>([]);
+    const [fetchedBuildings, setFetchedBuildings] = useState<MasterBuildingProps[]>([]); // State variable for fetched buildings
 
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await api.buildings.getBuildings(1, 2); // Call the API function to fetch buildings
+            console.log("RESPONSE: ", response);
+            if (response.ok) {
+              const data = await response.json(); // Extract JSON data from the response
+              console.log("DATA: ", data);
+              setFetchedBuildings(data); // Update the state with the fetched data
+            } else {
+              console.error('Failed to fetch buildings:', response.statusText);
+            }
+          } catch (error) {
+            console.error('Error fetching buildings:', error);
+          }
+        };
+    
+        fetchData(); // Call the fetchData function when the component mounts
+      }, []); 
+
+    console.log("FETCHED BUILDINGS: ", fetchedBuildings); // Log the fetched buildings
     const handleFilterChange = (newFilterValue: string) => {
         //console.log("NEW FILTER VALUE: ", newFilterValue);
         setFilterValue(newFilterValue);
@@ -48,7 +72,7 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
                         ))}
                     </div>
                 </div>
-                {buildings.filter(building => {
+                {_buildings.filter(building => {
                     //console.log("FILTER VALUE: ", filterValue);
                     if (filterValue === "" && dropdownFilterValues.length == 0) {
                         return true;
