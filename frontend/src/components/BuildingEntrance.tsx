@@ -1,14 +1,14 @@
 import React from "react";
 import { entrancesData } from "../assets/buildingsData/buildingsData";
 
-export interface BuildingEntraceProps
+export interface BuildingEntranceProps
 {
     parentID: number;
     entranceNumber: number;
     street: string;
 }
 
-const BuildingEntrance: React.FC<BuildingEntraceProps> = () => {
+const BuildingEntrance: React.FC<BuildingEntranceProps> = () => {
     return (
         <div>
 

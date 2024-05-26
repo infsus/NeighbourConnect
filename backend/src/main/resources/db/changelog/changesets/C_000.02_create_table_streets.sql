@@ -2,7 +2,7 @@
 
 -- changeset C_000:02-create-table-streets
 CREATE TABLE IF NOT EXISTS "streets" (
-    "id" integer PRIMARY KEY,
+    "id" serial PRIMARY KEY,
     "placeId" integer NOT NULL,
     "name" varchar(50) NOT NULL,
     "metaId" integer UNIQUE NOT NULL,

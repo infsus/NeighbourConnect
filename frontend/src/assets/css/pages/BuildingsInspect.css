@@ -1,4 +1,4 @@
 .buildings-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    flex-direction: column;
 }

@@ -2,7 +2,7 @@
 
 -- changeset C_000:05-create-table-contracts
 CREATE TABLE IF NOT EXISTS "contracts" (
-    "id" integer PRIMARY KEY,
+    "id" serial PRIMARY KEY,
     "buildingId" integer NOT NULL,
     "companyId" integer NOT NULL,
     "contractingDate" date NOT NULL,

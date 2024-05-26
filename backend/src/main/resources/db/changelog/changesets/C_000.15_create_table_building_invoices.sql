@@ -2,7 +2,7 @@
 
 -- changeset C_000:15-create-table-building-invoices
 CREATE TABLE IF NOT EXISTS "building_invoices" (
-    "id" integer PRIMARY KEY,
+    "id" serial PRIMARY KEY,
     "buildingId" integer NOT NULL,
     "issueDate" date NOT NULL DEFAULT now(),
     "dueDate" date NOT NULL,
