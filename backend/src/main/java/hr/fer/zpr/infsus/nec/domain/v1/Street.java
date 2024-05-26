@@ -35,4 +35,9 @@ public class Street {
     @JoinColumn(name = "\"metaId\"", nullable = false)
     private Meta meta;
 
+    public Street(Place place, String name, Meta meta) {
+        this.place = place;
+        this.name = name;
+        this.meta = meta;
+    }
 }
