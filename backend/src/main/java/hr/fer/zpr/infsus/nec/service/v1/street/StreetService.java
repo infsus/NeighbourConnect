@@ -95,4 +95,16 @@ public class StreetService implements IStreetService {
         street.setMeta(meta);
         streetRepository.save(street);
     }
+
+    @Override
+    public long count() {
+        Meta metaProbe = new Meta();
+        metaProbe.setIsDeleted(false);
+        Street probe = new Street();
+        probe.setMeta(metaProbe);
+
+        Example<Street> example = Example.of(probe);
+
+        return streetRepository.count(example);
+    }
 }

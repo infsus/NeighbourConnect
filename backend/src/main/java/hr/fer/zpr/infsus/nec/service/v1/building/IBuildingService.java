@@ -20,4 +20,6 @@ public interface IBuildingService {
     Building update(User currentUser, Integer id, BuildingUpdateRequestDTO buildingData);
 
     void delete(User currentUser, Integer id);
+
+    long count();
 }
