@@ -21,11 +21,11 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
     };
 
     const handleDropdownFilterSelect = (newDropdownFilters: DropdownFilter[]) => {
-        console.log(newDropdownFilters);
+        //console.log(newDropdownFilters);
         setDropdownFilterValues(newDropdownFilters);
     }
     const handleFilteringCategories = (newChosenCategories: string[]) => {
-        console.log("NEW CHOSEN CATEGORIES: ", newChosenCategories);
+        //console.log("NEW CHOSEN CATEGORIES: ", newChosenCategories);
         setChosenCategories(newChosenCategories);
     };
 
