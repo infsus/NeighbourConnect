@@ -19,7 +19,6 @@ export interface MasterBuildingProps {
     buildingStartDate: Date;
     buildingEndDate: Date;
     name: string;
-    city: string;
     [key: string]: any;
 }
 
@@ -31,25 +30,20 @@ const Master: React.FC<MasterProps> = ({ m_categories, m_values }) => {
     const [showDetail, setShowDetail] = useState(false);
     const expandInfo = (buildingId: number) => {
         setShowDetail(prevShowDetail => !prevShowDetail);
-        console.log(`CLICKED ON BUTTON related to building: ${buildingId}`);
+        //console.log(`CLICKED ON BUTTON related to building: ${buildingId}`);
     }
     //"(" ne smije ici u novu liniju
     return (
-        <div>
-            <Card style={{ height: showDetail ? 'auto' : '300px' }}>
+        <div className="info-container">
+            <Card style={{ height: showDetail ? 'auto' : '150px', width: '550px' }}>
                 <Card.Body>
-                    <div className="details-container">
-                        <div className="title">
-                            {m_categories.map(category => (
-                                <p>{category}</p>
-                            ))}
-                        </div>
-                        <TableRow t_values={m_values} />
-                    </div>
+                    <TableRow isMaster={true} t_values={m_values} callbackFunc={null} />
                 </Card.Body>
                 {showDetail == true ? <Detail entrances={entranceData} d_categories={entranceCategories} /> : <></>}
-                <Button onClick={() => expandInfo(m_values.id)}>
-                    {showDetail == false ? "Pokaži više informacija" : "Makni informacije"}</Button>
+                <div className="expand-button-container">
+                    <Button className="expand-button" onClick={() => expandInfo(m_values.id)}>
+                        {showDetail == false ? "Proširi" : "Sakrij"}</Button>
+                </div>
             </Card>
         </div>
     );

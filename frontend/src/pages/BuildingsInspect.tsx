@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Building, { BuildingProps } from "../components/Building";
 import "../assets/css/pages/BuildingsInspect.css";
 import Filter, { Category, FilterElement, DropdownFilter } from "../components/Filter";
 import { categoryTypes, categories } from "../assets/buildingsData/buildingsData";
-import Master, {MasterBuildingProps} from "../components/Master";
+import Master, { MasterBuildingProps } from "../components/Master";
 import { masterData, masterCategories, entranceData, entranceCategories } from "../assets/buildingsData/buildingsData";
+import { api } from "../api";
+import "../assets/css/components/BuildingDetails.css"
+
 interface BuildingsProps {
     //buildings: BuildingProps[];
     buildings: MasterBuildingProps[];
@@ -14,7 +17,29 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
     const [filterValue, setFilterValue] = useState<string>("");
     const [dropdownFilterValues, setDropdownFilterValues] = useState<DropdownFilter[]>([]);
     const [chosenCategories, setChosenCategories] = useState<string[]>([]);
+    const [fetchedBuildings, setFetchedBuildings] = useState<MasterBuildingProps[]>([]); // State variable for fetched buildings
 
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await api.buildings.getBuildings(0, 10); // Call the API function to fetch buildings
+            console.log("RESPONSE: ", response);
+            if (response.ok) {
+              const data = await response.json(); // Extract JSON data from the response
+              console.log("DATA: ", data);
+              setFetchedBuildings(data); // Update the state with the fetched data
+            } else {
+              console.error('Failed to fetch buildings:', response.statusText);
+            }
+          } catch (error) {
+            console.error('Error fetching buildings:', error);
+          }
+        };
+    
+        fetchData(); // Call the fetchData function when the component mounts
+      }, []); 
+
+    console.log("FETCHED BUILDINGS: ", fetchedBuildings); // Log the fetched buildings
     const handleFilterChange = (newFilterValue: string) => {
         //console.log("NEW FILTER VALUE: ", newFilterValue);
         setFilterValue(newFilterValue);
@@ -41,7 +66,15 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
                 onDropdownSelect={handleDropdownFilterSelect}
             />
             <div className="buildings-container">
-                {buildings.filter(building => {
+                <div className="details-container">
+                    <div className="title">
+                        {masterCategories.map(category => (
+                            <p>{category}</p>
+                        ))}
+                    </div>
+                </div>
+                {fetchedBuildings.filter(building => {
+                    console.log("BUILDING: ", building);
                     //console.log("FILTER VALUE: ", filterValue);
                     if (filterValue === "" && dropdownFilterValues.length == 0) {
                         return true;
@@ -49,10 +82,10 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
 
                     let matchesTextFilter: boolean = false;
                     if (chosenCategories.length == 0 && dropdownFilterValues.length == 0) {
-                       return true;
+                        return true;
                     }
 
-                    else  {
+                    else {
                         matchesTextFilter = chosenCategories.some(category => {
                             const propertyValue = building[category as keyof BuildingProps];
                             //console.log("PROPERTY: ", propertyValue);
@@ -70,14 +103,14 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
                         console.log("FILTER VALUE: ", filter.value);
                         return propertyValue === filter.value;
                     });
-                    
+
                     if (chosenCategories.length == 0) return matchesDropdownFilters;
                     else if (dropdownFilterValues.length == 0) return matchesTextFilter;
                     else return matchesTextFilter && matchesDropdownFilters;
 
                 }).map(building => (
                     //<Building key={building.id} {...building} />
-                    <Master m_categories={masterCategories} m_values={building}/>
+                    <Master m_categories={masterCategories} m_values={building} />
                 ))}
             </div>
         </div>

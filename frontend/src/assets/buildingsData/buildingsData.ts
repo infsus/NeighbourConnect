@@ -275,8 +275,7 @@ const masterCategories: string[] = [
   "id",
   "buildingStartDate",
   "buildingEndDate",
-  "name",
-  "city"
+  "name"
 ];
 const masterData: MasterBuildingProps[] = [
   {

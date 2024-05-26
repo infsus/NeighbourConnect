@@ -130,6 +130,10 @@ const Filter: React.FC<FilterProps> = ({ categoryTypes, categories, usedCategori
                         ))}
                 </DropdownButton>
             ))}
+            {usedCategories.length ? "USED FILTERS:" : ""}
+            {usedCategories.map(used => {
+                return " " + used + " ";
+            })}
         </>
     );
 };

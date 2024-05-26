@@ -16,9 +16,16 @@ interface DetailProps {
     //d_values: BuildingEntraceProps;
 }
 const Detail: React.FC<DetailProps> = ({ entrances, d_categories }) => {
+    
+    const fetchAllEntrances = (parentID: number) => {
+        console.log("FETCHING ALL ENTRANCES");
+    }
+    const fetchEntrance = (id: number) => {
+        console.log("FETCHING ENTRANCE");
+    }
     const allEntrances = entrances.map(entrance => (
         <div className="detail-content">
-            <TableRow t_values={entrance} />
+            <TableRow isMaster={false} t_values={entrance} callbackFunc={fetchEntrance}/>
         </div>
     ))
     return (
