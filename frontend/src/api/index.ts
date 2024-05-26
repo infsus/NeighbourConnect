@@ -1,2 +1,5 @@
-//tu idu api prema backendu
-//u drugi file exportamo
+import { auth } from "./auth";
+
+export const api = {
+    auth
+};
