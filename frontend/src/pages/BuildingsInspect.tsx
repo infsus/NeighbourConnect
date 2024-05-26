@@ -74,6 +74,7 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
                     </div>
                 </div>
                 {fetchedBuildings.filter(building => {
+                    console.log("BUILDING: ", building);
                     //console.log("FILTER VALUE: ", filterValue);
                     if (filterValue === "" && dropdownFilterValues.length == 0) {
                         return true;

@@ -27,12 +27,17 @@ const deleteDetail = (event: React.MouseEvent<HTMLButtonElement>, id: number) =>
 }
 
 const TableRow: React.FC<TableProps> = ({ isMaster, t_values }) => {
-    const gridTemplateColumns = `repeat(${isMaster ? Object.keys(t_values).length : Object.keys(t_values).length + 1}, 1fr)`;
+    let values = t_values
+    if ("buildingStartDate" in t_values) {
+        const {entrances, ...rest} = t_values;
+        values = rest;
+    }
+    const gridTemplateColumns = `repeat(${isMaster ? Object.keys(values).length : Object.keys(values).length + 1}, 1fr)`;
     return (
         <div className="detail-content" style={{ width: '100%', display: 'grid', gridTemplateColumns }}>
-            {Object.keys(t_values).map((property, index) => (
+            {Object.keys(values).map((property, index) => (
                 <div key={index}>
-                    <p>{t_values[property as keyof typeof t_values]?.toString()}</p>
+                    <p>{t_values[property as keyof typeof values]?.toString()}</p>
                 </div>
             ))}
             {!isMaster ? (
