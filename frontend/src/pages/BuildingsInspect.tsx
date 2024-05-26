@@ -3,7 +3,7 @@ import Building, { BuildingProps } from "../components/Building";
 import "../assets/css/pages/BuildingsInspect.css";
 import Filter, { Category, FilterElement, DropdownFilter } from "../components/Filter";
 import { categoryTypes, categories } from "../assets/buildingsData/buildingsData";
-import Master, {MasterBuildingProps} from "../components/Master";
+import Master, { MasterBuildingProps } from "../components/Master";
 import { masterData, masterCategories, entranceData, entranceCategories } from "../assets/buildingsData/buildingsData";
 interface BuildingsProps {
     //buildings: BuildingProps[];
@@ -41,6 +41,13 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
                 onDropdownSelect={handleDropdownFilterSelect}
             />
             <div className="buildings-container">
+                <div className="details-container">
+                    <div className="title">
+                        {masterCategories.map(category => (
+                            <p>{category}</p>
+                        ))}
+                    </div>
+                </div>
                 {buildings.filter(building => {
                     //console.log("FILTER VALUE: ", filterValue);
                     if (filterValue === "" && dropdownFilterValues.length == 0) {
@@ -49,10 +56,10 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
 
                     let matchesTextFilter: boolean = false;
                     if (chosenCategories.length == 0 && dropdownFilterValues.length == 0) {
-                       return true;
+                        return true;
                     }
 
-                    else  {
+                    else {
                         matchesTextFilter = chosenCategories.some(category => {
                             const propertyValue = building[category as keyof BuildingProps];
                             //console.log("PROPERTY: ", propertyValue);
@@ -70,14 +77,14 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
                         console.log("FILTER VALUE: ", filter.value);
                         return propertyValue === filter.value;
                     });
-                    
+
                     if (chosenCategories.length == 0) return matchesDropdownFilters;
                     else if (dropdownFilterValues.length == 0) return matchesTextFilter;
                     else return matchesTextFilter && matchesDropdownFilters;
 
                 }).map(building => (
                     //<Building key={building.id} {...building} />
-                    <Master m_categories={masterCategories} m_values={building}/>
+                    <Master m_categories={masterCategories} m_values={building} />
                 ))}
             </div>
         </div>
