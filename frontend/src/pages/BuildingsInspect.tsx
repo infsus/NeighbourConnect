@@ -33,27 +33,56 @@ const BuildingsInspect: React.FC<BuildingsProps> = ({ buildings }) => {
                 categoryTypes={categoryTypes}
                 categories={categories}
                 usedCategories={chosenCategories}
-                dropdownFilterValues = {dropdownFilterValues}
+                dropdownFilterValues={dropdownFilterValues}
                 onFilterChange={handleFilterChange}
                 onCategoryToggle={handleFilteringCategories}
-                onDropdownSelect = {handleDropdownFilterSelect}
+                onDropdownSelect={handleDropdownFilterSelect}
             />
             <div className="buildings-container">
                 {buildings.filter(building => {
                     //console.log("FILTER VALUE: ", filterValue);
-                    if (filterValue === "") {
+                    if (filterValue === "" && dropdownFilterValues.length == 0) {
                         return true;
                     }
                     //ne zelimo da se ista komponenta rendera vise puta pa nemre ic for each il tak nes
-                    return chosenCategories.some(category => {
-                        const propertyValue = building[category as keyof BuildingProps];
-                        console.log("PROPERTY: ", propertyValue);
-                        if (typeof propertyValue === 'string') {
-                            const lowerCaseValue = propertyValue.toLowerCase()
-                            return lowerCaseValue.includes(filterValue.toLowerCase());
-                        }
-                        return false;
+                    // return chosenCategories.some(category => {
+                    //     const propertyValue = building[category as keyof BuildingProps];
+                    //     console.log("PROPERTY: ", propertyValue);
+                    //     if (typeof propertyValue === 'string') {
+                    //         const lowerCaseValue = propertyValue.toLowerCase()
+                    //         return lowerCaseValue.includes(filterValue.toLowerCase());
+                    //     }
+                    //     return false;
+                    // });
+                    
+                    let matchesTextFilter: boolean = false;
+                    if (chosenCategories.length == 0 && dropdownFilterValues.length == 0) {
+                       return true;
+                    }
+
+                    else  {
+                        matchesTextFilter = chosenCategories.some(category => {
+                            const propertyValue = building[category as keyof BuildingProps];
+                            //console.log("PROPERTY: ", propertyValue);
+                            if (typeof propertyValue === 'string') {
+                                const lowerCaseValue = propertyValue.toLowerCase()
+                                return lowerCaseValue.includes(filterValue.toLowerCase());
+                            }
+                            return false;
+                        });
+                    }
+                    const matchesDropdownFilters = dropdownFilterValues.some(filter => {
+                        console.log("DROPDOWN FILTER VALUES: ", dropdownFilterValues);
+                        const propertyValue = building[filter.category as keyof BuildingProps];
+                        console.log("PROPERTY VALUE: ", propertyValue);
+                        console.log("FILTER VALUE: ", filter.value);
+                        return propertyValue === filter.value;
                     });
+                    
+                    if (chosenCategories.length == 0) return matchesDropdownFilters;
+                    else if (dropdownFilterValues.length == 0) return matchesTextFilter;
+                    else return matchesTextFilter && matchesDropdownFilters;
+
                 }).map(building => (
                     <Building key={building.id} {...building} />
                 ))}
