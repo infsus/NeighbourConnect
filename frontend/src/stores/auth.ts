@@ -7,15 +7,16 @@ const isLogged = () => {
     return localStorage.getItem(CREDENTIALS) !== null;
 };
 
-const logIn = (username: string, password: string) => {
+const logIn = async (username: string, password: string): Promise<Response> => {
     // Create token
     const token: string = Buffer.from(`${username}:${password}`).toString('base64');
 
     // Call login API
-    api.auth.login(token)
-        .then(_ => {
-            localStorage.setItem(CREDENTIALS, token);
-        }).catch(() => {});
+    const response = await api.auth.login(token);
+    if (response.ok) {
+        localStorage.setItem(CREDENTIALS, token);
+    }
+    return response;
 };
 
 const logOut = () => {

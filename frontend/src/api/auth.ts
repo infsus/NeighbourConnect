@@ -2,7 +2,7 @@ import { request } from "./request";
 
 const requestMapping: string = "/v1";
 
-const login = async (token: string): Promise<any> => {
+const login = async (token: string): Promise<Response> => {
     const api: Api = {
         url: requestMapping + "/login",
         options: {
