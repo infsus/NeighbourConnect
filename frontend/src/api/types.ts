@@ -25,3 +25,13 @@ interface UpdateBuildingBody {
     buildingEndDate: string | null,
     name: string | null,
 };
+
+interface CreateStreetBody {
+    name: string,
+    placeId: number
+};
+
+interface UpdateStreetBody {
+    name: string | null,
+    placeId: number | null
+};
