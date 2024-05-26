@@ -1,0 +1,32 @@
+.details-container {
+    margin-top: 20px;
+  }
+  
+  .title {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    background-color: #f2f2f2;
+  }
+  
+  .detail-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  h4 {
+    font-size: 25px;
+    text-align: left;
+  }
+  
+  .title p,
+  .detail-content p {
+    width: 50%;
+  }
+  
