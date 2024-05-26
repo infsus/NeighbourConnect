@@ -38,7 +38,7 @@ const Master: React.FC<MasterProps> = ({ m_categories, m_values }) => {
         <div className="info-container">
             <Card style={{ height: showDetail ? 'auto' : '250px' }}>
                 <Card.Body>
-                    <TableRow isMaster={true} t_values={m_values} />
+                    <TableRow isMaster={true} t_values={m_values} callbackFunc={null} />
                 </Card.Body>
                 {showDetail == true ? <Detail entrances={entranceData} d_categories={entranceCategories} /> : <></>}
                 <div className="expand-button-container">
