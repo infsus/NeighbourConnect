@@ -1,14 +1,53 @@
 import Login from './Login';
 import Home from './Home';
 import Streets from './Streets';
-import Buildings from './buildings/Buildings';
+import MasterDetailForm from './buildings/MasterDetailForm';
+import Edit from './buildings/Edit';
 
 
 const pages: Pages = {
-  buildings: { component: Buildings, name: "Buildings", url: "/buildings", navbar: true },
-  streets: { component: Streets, name: "Streets", url: "/streets", navbar: true },
-  login: { component: Login, name: "Login", url: "/", navbar: false },
-  home: { component: Home, name: "NeighbourConnect", url: '/home', navbar: false },
+  buildings: { 
+    component: MasterDetailForm, 
+    name: "Buildings", 
+    url: "/buildings", 
+    navbar: true, 
+    props: undefined 
+  },
+  buildingCreate: { 
+    component: Edit, 
+    name: "Building Create", 
+    url: "/buildings/create", 
+    navbar: false, 
+    props: undefined
+  },
+  buildingEdit: { 
+    component: Edit, 
+    name: "Building Edit", 
+    url: "/buildings/edit", 
+    navbar: false, 
+    props: undefined
+  },
+  streets: { 
+    component: Streets, 
+    name: "Streets", 
+    url: "/streets", 
+    navbar: true, 
+    props: undefined 
+  },
+  login: { 
+    component: Login, 
+    name: "Login", 
+    url: "/", 
+    navbar: false, 
+    props: undefined 
+  },
+  home: { 
+    component: Home, 
+    name: "NeighbourConnect", 
+    url: '/home', 
+    navbar: false, 
+    props: undefined 
+  },
 };
 
 export default pages;

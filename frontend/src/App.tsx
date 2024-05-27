@@ -9,7 +9,7 @@ const App: React.FC = () => {
       <Navbar pages={pages} />
       <Routes>
         {Object.entries(pages).map(([key, { component, url }]) => (
-          <Route key={key} path={url} element={React.createElement(component)} />
+          <Route key={key} path={url} element={React.createElement(component, )} />
         ))}
       </Routes>
     </Router>

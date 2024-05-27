@@ -1,29 +1,17 @@
 import React, { useState, useEffect } from "react";
 import GenericTable from "../../components/common/GenericTable";
 import { api } from "../../api";
+import { useNavigate } from "react-router-dom";
+import pages from "..";
 
-interface Building {
-    id: number,
-    buildingStartDate: string,
-    buildingEndDate: string,
-    name: string,
-    entrances: BuildingEntrance[]
-};
-
-interface BuildingEntrance {
-    id: number,
-    tenantRepresentative: string,
-    streetName: string,
-    streetNumber: string
-};
-
-const Buildings: React.FC = () => {
+const MasterDetailForm: React.FC = () => {
     const [buildings, setBuildings] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
     const [entrances, setEntrances] = useState([]);
     const [entrancesTotalCount, setEntrancesTotalCount] = useState(0);
     const [activePage, setActivePage] = useState(0);
     const itemsPerPage: number = 10;
+    const navigate = useNavigate();
 
     const fetchBuildings = async (page: number = 0) => {
         const response = await api.buildings.getBuildings(page, itemsPerPage);
@@ -43,15 +31,35 @@ const Buildings: React.FC = () => {
     }, []);
 
     const onCreate = () => {
-        alert("Create");
+        navigate(
+            pages.buildingCreate.url, 
+            { 
+                state: { 
+                    edit: false, 
+                    building: null 
+                }
+            }
+        );
     };
 
-    const onEdit = (id: number) => {
-        alert("Edit");
+    const onEdit = async (id: number) => {
+        const response = await api.buildings.getBuilding(id);
+        if (response.ok) {
+            const data = await response.json();
+            navigate(
+                pages.buildingEdit.url, 
+                { 
+                    state: { 
+                        edit: true, 
+                        building: data
+                    }
+                }
+            );
+        }
     };
 
     const onDelete = (id: number) => {
-        alert("Delete");
+        alert("Are you sure?");
     };
 
     const onRowChange = (id: number) => {
@@ -104,4 +112,4 @@ const Buildings: React.FC = () => {
     )
 }
 
-export default Buildings;
+export default MasterDetailForm;
