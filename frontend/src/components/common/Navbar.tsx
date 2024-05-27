@@ -20,11 +20,12 @@ const Navbar: React.FC<NavbarProps> = ({ pages }) => {
             {authStore.isLogged() ? (
                 <ul className="navbar-nav mx-4">
                     {Object.values(pages).map(page => {
-                        return (
-                            <li key={page.url} className="nav-item">
-                                <a className="nav-link" href={page.url}>{page.name}</a>
-                            </li>
-                        )
+                        if (page.navbar)
+                            return (
+                                <li key={page.url} className="nav-item">
+                                    <a className="nav-link" href={page.url}>{page.name}</a>
+                                </li>
+                            )
                     })}
                     <li className="nav-item">
                         <button className="nav-link" onClick={onLogout}>Logout ({authStore.getUsername()})</button>

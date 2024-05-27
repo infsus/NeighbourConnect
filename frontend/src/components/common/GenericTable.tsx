@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 
-interface GenericTableProps {
+interface GenericTableProps<T> {
+    name: string,
     theme: string,
     thNames: string[],
-    tdKeys: string[],
+    tdKeys: ((s: T) => string)[],
     source: any[],
     totalCount: number,
     activePage: number,
     itemsPerPage: number,
+    onActionCreate: () => void,
     onActionEdit: (id: number) => void,
     onActionDelete: (id: number) => void,
     onRowChange: (id: number) => void,
     onPageChange: (newPage: number) => void
 };
 
-const GenericTable: React.FC<GenericTableProps> = (props) => {
+function GenericTable<T>(props: GenericTableProps<T>) {
     const [activeRow, setActiveRow] = useState(0);
     const [pageNumbers, setPageNumbers] = useState([]);
 
@@ -45,7 +47,15 @@ const GenericTable: React.FC<GenericTableProps> = (props) => {
 
     return (
         <div>
-            <table className="table table-hover">
+            <div className="d-flex justify-content-between align-items-center">
+                <h1>{props.name}</h1>
+                <button 
+                    type="button"
+                    className="btn btn-outline-secondary mx-0"
+                    onClick={() => props.onActionCreate()}
+                    >New</button>
+            </div>
+            <table className="table table-hover align-middle">
                 <thead className={props.theme}>
                     <tr>
                         <th scope="col">#</th>
@@ -61,7 +71,7 @@ const GenericTable: React.FC<GenericTableProps> = (props) => {
                                 className={index == activeRow ? "table-active" : ""} 
                                 onClick={() => onRowChange(index, s.id)}>
                                 <th scope="row">{index + 1}</th>
-                                {props.tdKeys.map(tdKey => <td key={tdKey}>{s[tdKey]}</td>)}
+                                {props.tdKeys.map(tdKey => <td className="m-auto" key={tdKey(s)}>{tdKey(s)}</td>)}
                                 <td className="text-end">
                                     <div className="btn-group mx-4" role="group" aria-label="Action group">
                                         <button 

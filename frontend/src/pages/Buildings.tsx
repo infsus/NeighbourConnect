@@ -2,32 +2,34 @@ import React, { useState, useEffect } from "react";
 import GenericTable from "../components/common/GenericTable";
 import { api } from "../api";
 
-interface Street {
+interface Building {
     id: number,
+    buildingStartDate: string,
+    buildingEndDate: string,
     name: string,
-    place: string
-}
+    entrances: any[]
+};
 
-const Streets: React.FC = () => {
-    const [streets, setStreets] = useState([]);
+const Buildings: React.FC = () => {
+    const [buildings, setBuildings] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
     const [activeRow, setActiveRow] = useState(0);
     const [activePage, setActivePage] = useState(0);
     const itemsPerPage: number = 10;
 
-    const fetchStreets = async (page: number = 0) => {
-        const response = await api.streets.getStreets(page, itemsPerPage);
+    const fetchBuildings = async (page: number = 0) => {
+        const response = await api.buildings.getBuildings(page, itemsPerPage);
         if (response.ok) {
             const data = await response.json();
-            setStreets(data.content);
+            setBuildings(data.content);
             setTotalCount(data.count);
         } else {
-            alert("Error while fetching streets.");
+            alert("Error while fetching buildings.");
         }
     };
 
     useEffect(() => {
-        fetchStreets();
+        fetchBuildings();
     }, []);
 
     const onCreate = () => {
@@ -48,17 +50,17 @@ const Streets: React.FC = () => {
 
     const onPageChange = (newPage: number) => {
         setActivePage(newPage);
-        fetchStreets(newPage);
+        fetchBuildings(newPage);
     }
 
     return (
         <div className="container mt-5">
-            <GenericTable<Street>
-                name="Streets"
+            <GenericTable<Building>
+                name="Buildings"
                 theme="table-dark" 
-                thNames={["ID", "Name", "Place"]}
-                tdKeys={[s => s.id.toString(), s => s.name, s => s.place]}
-                source={streets}
+                thNames={["ID", "Building Name", "Building Start Date", "Building End Date", "Number Of Entrances"]}
+                tdKeys={[s => s.id.toString(), s => s.name, s => s.buildingStartDate, s => s.buildingEndDate, s => s.entrances.length]}
+                source={buildings}
                 totalCount={totalCount}
                 activePage={activePage}
                 itemsPerPage={itemsPerPage}
@@ -72,4 +74,4 @@ const Streets: React.FC = () => {
     )
 }
 
-export default Streets;
+export default Buildings;
