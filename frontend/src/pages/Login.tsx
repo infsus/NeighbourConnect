@@ -10,7 +10,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="d-flex">
+    <div className="container">
       <LoginForm onLoginSuccess={handleLoginSuccess} />
     </div>
   );
