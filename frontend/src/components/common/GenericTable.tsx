@@ -21,7 +21,7 @@ function GenericTable<T>(props: GenericTableProps<T>) {
     const [activeRow, setActiveRow] = useState(0);
     const [pageNumbers, setPageNumbers] = useState([]);
 
-    useEffect(() => updatePageNumbers());
+    useEffect(() => updatePageNumbers(), []);
 
     const onRowChange = (row: number, id: number) => {
         if (!props.selectable) return;

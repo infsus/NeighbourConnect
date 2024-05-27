@@ -43,19 +43,20 @@ const MasterDetailForm: React.FC = () => {
     };
 
     const onEdit = async (id: number) => {
-        const response = await api.buildings.getBuilding(id);
-        if (response.ok) {
-            const data = await response.json();
-            navigate(
-                pages.buildingEdit.url, 
-                { 
-                    state: { 
-                        edit: true, 
-                        building: data
-                    }
+        // const response = await api.buildings.getBuilding(id);
+        // if (response.ok) {
+            // const data = await response.json();
+        const data = buildings.filter(b => b.id == id)[0];
+        navigate(
+            pages.buildingEdit.url, 
+            { 
+                state: { 
+                    edit: true, 
+                    building: data
                 }
-            );
-        }
+            }
+        );
+        // }
     };
 
     const onDelete = (id: number) => {
