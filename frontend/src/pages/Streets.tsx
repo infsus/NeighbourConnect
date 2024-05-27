@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GenericTable from "../components/common/GenericTable";
 import { api } from "../api";
+import { useNavigate } from "react-router-dom";
 
 interface Street {
     id: number,
@@ -13,7 +14,8 @@ const Streets: React.FC = () => {
     const [totalCount, setTotalCount] = useState(0);
     const [activeRow, setActiveRow] = useState(0);
     const [activePage, setActivePage] = useState(0);
-    const itemsPerPage: number = 10;
+    const itemsPerPage: number = 5;
+    const navigate = useNavigate();
 
     const fetchStreets = async (page: number = 0) => {
         const response = await api.streets.getStreets(page, itemsPerPage);
@@ -38,8 +40,14 @@ const Streets: React.FC = () => {
         alert("Edit");
     };
 
-    const onDelete = (id: number) => {
-        alert("Delete");
+    const onDelete = async (id: number) => {
+        if (confirm("Are you sure?")) {
+            const response = await api.streets.deleteStreet(id);
+            if (response.ok) {
+                alert("Street deleted successfully.");
+                navigate("/streets");
+            }
+        }
     };
 
     const onRowChange = (id: number) => {

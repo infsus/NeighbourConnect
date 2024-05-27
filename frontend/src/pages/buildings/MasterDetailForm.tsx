@@ -10,7 +10,7 @@ const MasterDetailForm: React.FC = () => {
     const [entrances, setEntrances] = useState([]);
     const [entrancesTotalCount, setEntrancesTotalCount] = useState(0);
     const [activePage, setActivePage] = useState(0);
-    const itemsPerPage: number = 10;
+    const itemsPerPage: number = 5;
     const navigate = useNavigate();
 
     const fetchBuildings = async (page: number = 0) => {
@@ -59,8 +59,23 @@ const MasterDetailForm: React.FC = () => {
         // }
     };
 
-    const onDelete = (id: number) => {
-        alert("Are you sure?");
+    const onDeleteBuilding = async (id: number) => {
+        if (confirm("Are you sure?")) {
+            const response = await api.buildings.deleteBuilding(id);
+            if (response.ok) {
+                alert("Building deleted successfully.");
+                navigate("/buildings");
+            }
+        }
+    };
+
+    const onDeleteBuildingEntrance = async (id: number) => {
+        if (confirm("Are you sure?")) {
+            const response = await api.buildingEntrances.deleteBuildingEntrance(id);
+            if (response.ok) {
+                alert("Building entrance deleted successfully.");
+            }
+        }
     };
 
     const onRowChange = (id: number) => {
@@ -88,7 +103,7 @@ const MasterDetailForm: React.FC = () => {
                 selectable={true}
                 onActionCreate={onCreate}
                 onActionEdit={onEdit}
-                onActionDelete={onDelete}
+                onActionDelete={onDeleteBuilding}
                 onRowChange={onRowChange}
                 onPageChange={onPageChange}
             />
@@ -105,9 +120,9 @@ const MasterDetailForm: React.FC = () => {
                 selectable={false}
                 onActionCreate={onCreate}
                 onActionEdit={onEdit}
-                onActionDelete={onDelete}
-                onRowChange={onRowChange}
-                onPageChange={onPageChange}
+                onActionDelete={onDeleteBuildingEntrance}
+                onRowChange={() => {}}
+                onPageChange={() => {}}
             />
         </div>
     )

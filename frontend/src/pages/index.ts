@@ -3,6 +3,7 @@ import Home from './Home';
 import Streets from './Streets';
 import MasterDetailForm from './buildings/MasterDetailForm';
 import Edit from './buildings/Edit';
+import Create from './Create';
 
 
 const pages: Pages = {
@@ -13,8 +14,15 @@ const pages: Pages = {
     navbar: true, 
     props: undefined 
   },
-  buildingCreate: { 
+  buildingCreateNew: { 
     component: Edit, 
+    name: "Building Create", 
+    url: "/buildings/create-new", 
+    navbar: false, 
+    props: undefined
+  },
+  buildingCreate: { 
+    component: Create, 
     name: "Building Create", 
     url: "/buildings/create", 
     navbar: false, 

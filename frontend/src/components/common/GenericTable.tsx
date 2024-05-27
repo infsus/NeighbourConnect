@@ -21,7 +21,7 @@ function GenericTable<T>(props: GenericTableProps<T>) {
     const [activeRow, setActiveRow] = useState(0);
     const [pageNumbers, setPageNumbers] = useState([]);
 
-    useEffect(() => updatePageNumbers(), []);
+    useEffect(() => updatePageNumbers(), [pageNumbers]);
 
     const onRowChange = (row: number, id: number) => {
         if (!props.selectable) return;
@@ -72,9 +72,9 @@ function GenericTable<T>(props: GenericTableProps<T>) {
                                 key={index} 
                                 className={props.selectable && index == activeRow ? "table-active" : ""} 
                                 onClick={() => onRowChange(index, s.id)}>
-                                <th scope="row">{index + 1}</th>
-                                {props.tdKeys.map(tdKey => <td className="m-auto" key={tdKey(s)}>{tdKey(s)}</td>)}
-                                <td className="text-end">
+                                <th scope="row" hidden={index >= props.totalCount}>{index + 1}</th>
+                                {props.tdKeys.map(tdKey => <td className="m-auto" key={tdKey(s)} hidden={index >= props.totalCount}>{tdKey(s)}</td>)}
+                                <td className="text-end" hidden={index >= props.totalCount}>
                                     <div className="btn-group mx-4" role="group" aria-label="Action group">
                                         <button 
                                             type="button" 
