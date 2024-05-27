@@ -9,6 +9,7 @@ interface GenericTableProps<T> {
     totalCount: number,
     activePage: number,
     itemsPerPage: number,
+    selectable: boolean,
     onActionCreate: () => void,
     onActionEdit: (id: number) => void,
     onActionDelete: (id: number) => void,
@@ -23,6 +24,7 @@ function GenericTable<T>(props: GenericTableProps<T>) {
     useEffect(() => updatePageNumbers());
 
     const onRowChange = (row: number, id: number) => {
+        if (!props.selectable) return;
         setActiveRow(row);
         props.onRowChange(id);
     }
@@ -55,7 +57,7 @@ function GenericTable<T>(props: GenericTableProps<T>) {
                     onClick={() => props.onActionCreate()}
                     >New</button>
             </div>
-            <table className="table table-hover align-middle">
+            <table className={props.selectable ? "table table-hover align-middle" : "table align-middle"}>
                 <thead className={props.theme}>
                     <tr>
                         <th scope="col">#</th>
@@ -68,7 +70,7 @@ function GenericTable<T>(props: GenericTableProps<T>) {
                         return (
                             <tr 
                                 key={index} 
-                                className={index == activeRow ? "table-active" : ""} 
+                                className={props.selectable && index == activeRow ? "table-active" : ""} 
                                 onClick={() => onRowChange(index, s.id)}>
                                 <th scope="row">{index + 1}</th>
                                 {props.tdKeys.map(tdKey => <td className="m-auto" key={tdKey(s)}>{tdKey(s)}</td>)}
@@ -118,12 +120,12 @@ function GenericTable<T>(props: GenericTableProps<T>) {
                             )
                         })}
                         <li 
-                            className={props.activePage == pageNumbers.length - 1 ? "page-item disabled": "page-item"}
+                            className={pageNumbers.length == 0 || props.activePage == pageNumbers.length - 1 ? "page-item disabled": "page-item"}
                             >
                             <button 
                                 className="page-link" 
                                 tabIndex={-1}
-                                aria-disabled={props.activePage == pageNumbers.length - 1}
+                                aria-disabled={pageNumbers.length == 0 || props.activePage == pageNumbers.length - 1}
                                 onClick={() => props.onPageChange(props.activePage + 1)}
                                 >Next</button>
                         </li>

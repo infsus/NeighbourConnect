@@ -62,6 +62,7 @@ const Streets: React.FC = () => {
                 totalCount={totalCount}
                 activePage={activePage}
                 itemsPerPage={itemsPerPage}
+                selectable={false}
                 onActionCreate={onCreate}
                 onActionEdit={onEdit}
                 onActionDelete={onDelete}

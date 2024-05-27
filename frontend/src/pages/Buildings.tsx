@@ -7,13 +7,21 @@ interface Building {
     buildingStartDate: string,
     buildingEndDate: string,
     name: string,
-    entrances: any[]
+    entrances: BuildingEntrance[]
+};
+
+interface BuildingEntrance {
+    id: number,
+    tenantRepresentative: string,
+    streetName: string,
+    streetNumber: string
 };
 
 const Buildings: React.FC = () => {
     const [buildings, setBuildings] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
-    const [activeRow, setActiveRow] = useState(0);
+    const [entrances, setEntrances] = useState([]);
+    const [entrancesTotalCount, setEntrancesTotalCount] = useState(0);
     const [activePage, setActivePage] = useState(0);
     const itemsPerPage: number = 10;
 
@@ -23,6 +31,8 @@ const Buildings: React.FC = () => {
             const data = await response.json();
             setBuildings(data.content);
             setTotalCount(data.count);
+            setEntrances(data.content[0].entrances);
+            setEntrancesTotalCount(data.content[0].entrances.length);
         } else {
             alert("Error while fetching buildings.");
         }
@@ -45,7 +55,9 @@ const Buildings: React.FC = () => {
     };
 
     const onRowChange = (id: number) => {
-        alert("Change " + id);
+        const building = buildings.filter(b => b.id == id)[0];
+        setEntrances(building.entrances);
+        setEntrancesTotalCount(building.entrances.length);
     };
 
     const onPageChange = (newPage: number) => {
@@ -64,6 +76,24 @@ const Buildings: React.FC = () => {
                 totalCount={totalCount}
                 activePage={activePage}
                 itemsPerPage={itemsPerPage}
+                selectable={true}
+                onActionCreate={onCreate}
+                onActionEdit={onEdit}
+                onActionDelete={onDelete}
+                onRowChange={onRowChange}
+                onPageChange={onPageChange}
+            />
+            <hr></hr>
+            <GenericTable<BuildingEntrance>
+                name="Entrances"
+                theme="table-light" 
+                thNames={["ID", "Tenant Representative", "Street Name", "Street Number"]}
+                tdKeys={[s => s.id.toString(), s => s.tenantRepresentative, s => s.streetName, s => s.streetNumber]}
+                source={entrances}
+                totalCount={entrancesTotalCount}
+                activePage={activePage}
+                itemsPerPage={itemsPerPage}
+                selectable={false}
                 onActionCreate={onCreate}
                 onActionEdit={onEdit}
                 onActionDelete={onDelete}
