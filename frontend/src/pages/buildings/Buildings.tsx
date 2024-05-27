@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import GenericTable from "../components/common/GenericTable";
-import { api } from "../api";
+import GenericTable from "../../components/common/GenericTable";
+import { api } from "../../api";
 
 interface Building {
     id: number,
