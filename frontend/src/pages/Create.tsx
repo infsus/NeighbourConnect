@@ -84,14 +84,14 @@ const Create: React.FC<null> = () => {
         try {
             const response = await api.buildings.createBuilding(JSON.stringify(formData));
             if (response.ok) {
-                console.log("Changes submitted successfully");
+                alert("Changes submitted successfully.");
+                navigate('/buildings');
             } else {
-                console.error("Failed to submit changes:", response.statusText);
+                alert(`Failed to submit changes.`);
             }
         } catch (error) {
             console.error("Error submitting changes:", error);
         }
-        navigate('/buildings');
     };
 
     const abortCreate = () => {
@@ -99,54 +99,57 @@ const Create: React.FC<null> = () => {
     }
 
     return (
-        <Card>
-            <Card.Body style={{ width: "100%" }}>
-                {categories.slice(0, 3).map(category => (
-                    <FormGroup key={category}>
-                        <FormLabel>{category}</FormLabel>
-                        <FormControl
-                            name={category}
-                            placeholder={`Enter ${category}`}
-                            onChange={handleInputChange}
-                        />
-                    </FormGroup>
-                ))}
-                {entranceFields.map((entrance, index) => (
-                    <FormGroup key={index}>
-                        <FormLabel>Entrance {index + 1}</FormLabel>
-                        <FormControl
-                            name="tenantRepresentativeId"
-                            placeholder="Enter tenant representative ID"
-                            value={entrance.tenantRepresentativeId ?? ''}
-                            onChange={event => handleEntranceChange(index, event)}
-                        />
-                        <FormControl
-                            name="streetId"
-                            placeholder="Enter street ID"
-                            //value={entrance.streetId}
-                            onChange={event => handleEntranceChange(index, event)}
-                        />
-                        <FormControl
-                            name="streetNumber"
-                            placeholder="Enter street number"
-                            //value={entrance.streetNumber}
-                            onChange={event => handleEntranceChange(index, event)}
-                        />
-                        <Button className="btn-danger" onClick={() => removeEntranceField(index)}>
-                            -
-                        </Button>
-                    </FormGroup>
-                ))}
-                <Button className="btn-primary" onClick={addEntranceField}>
-                    Add Entrance
-                </Button>
-            </Card.Body>
-            <Button className="btn-success" onClick={submitChanges}
-            disabled = {
-                formDataNotComplete(formData) || !entranceDataComplete(formData)
-            }>Confirm</Button>
-            <Button className="btn-danger" onClick={abortCreate}>Cancel</Button>
-        </Card>
+        <div className="container mt-5">
+            <h1>Create New Building</h1>
+            <Card>
+                <Card.Body style={{ width: "100%" }}>
+                    {categories.slice(0, 3).map(category => (
+                        <FormGroup key={category}>
+                            <FormLabel>{category}</FormLabel>
+                            <FormControl
+                                name={category}
+                                placeholder={`Enter ${category}`}
+                                onChange={handleInputChange}
+                            />
+                        </FormGroup>
+                    ))}
+                    {entranceFields.map((entrance, index) => (
+                        <FormGroup key={index}>
+                            <FormLabel>Entrance {index + 1}</FormLabel>
+                            <FormControl
+                                name="tenantRepresentativeId"
+                                placeholder="Enter tenant representative ID"
+                                value={entrance.tenantRepresentativeId ?? ''}
+                                onChange={event => handleEntranceChange(index, event)}
+                            />
+                            <FormControl
+                                name="streetId"
+                                placeholder="Enter street ID"
+                                //value={entrance.streetId}
+                                onChange={event => handleEntranceChange(index, event)}
+                            />
+                            <FormControl
+                                name="streetNumber"
+                                placeholder="Enter street number"
+                                //value={entrance.streetNumber}
+                                onChange={event => handleEntranceChange(index, event)}
+                            />
+                            <Button className="btn-danger" onClick={() => removeEntranceField(index)}>
+                                -
+                            </Button>
+                        </FormGroup>
+                    ))}
+                    <Button className="btn-primary" onClick={addEntranceField}>
+                        Add Entrance
+                    </Button>
+                </Card.Body>
+                <Button className="btn-success" onClick={submitChanges}
+                disabled = {
+                    formDataNotComplete(formData) || !entranceDataComplete(formData)
+                }>Confirm</Button>
+                <Button className="btn-danger" onClick={abortCreate}>Cancel</Button>
+            </Card>
+        </div>
     );
 };
 

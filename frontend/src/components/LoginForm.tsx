@@ -22,7 +22,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
   };
 
   return (
-    <form onSubmit={handleLogin}>
+    <form className="w-25 m-auto mt-5 p-5 bg-light" onSubmit={handleLogin}>
       <div className="mb-3">
         <label htmlFor="username" className="form-label">Username</label>
         <input
@@ -45,7 +45,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
           required
         />
       </div>
-      <button type="submit" className="btn btn-primary">Login</button>
+      <div className="d-flex justify-content-end">
+        <button type="submit" className="btn btn-dark">Login</button>
+      </div>
     </form>
   );
 };
